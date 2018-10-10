@@ -58,39 +58,7 @@ function features = getLfpFeatures(data)
     hypVals(inds) = [];
     hypPos(inds) = [];
     
-     if ~isempty(hypVals) || ~isempty(depVals)
-
-        if isempty(hypVals)
-            hypVals = 0;
-            hypPos = 0;
-        end
-        if isempty(depVals)
-            depVals = 0;
-            depPos = 0;
-        end
-
-        lfpShapeMat = [];
-
-        %if the primary pattern is depression 
-        if mean(depVals)>=mean(hypVals)
-            for k=1:length(depVals)
-                try
-                    lfpShapeMat = [lfpShapeMat;[data(depPos(k)-fs/4:depPos(k)+fs/2)]]; % save the LFP shape
-                end
-            end
-        end
-
-        %if the primary pattern is potentiation
-        if mean(depVals)<mean(hypVals)
-            for k=1:length(hypVals)
-                try
-                    lfpShapeMat = [lfpShapeMat;[data(hypPos(k)-fs/4:hypPos(k)+fs/2)]]; % save the LFP shape
-                end
-            end
-        end
-     end
-    
-    % computer the polarization intervals
+    % compute the polarization intervals
     depIntervals =diff(depPos); %get the LFP negative polarization intervals
     hypIntervals =diff(hypPos); %get the LFP positive polarization intervals
     
